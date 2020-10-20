@@ -1,37 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import NewsItem from './components/NewsItem';
+
+import { Switch, Route, Link } from "react-router-dom"
+import NewsDetailPage from './pages/NewsDetailPage';
+import NewsListPage from './pages/NewsListPage';
 
 function App() {
-  const [newsData, setNewsData] = useState([])
-  const [expandedItem, setExpandedItem] = useState(null)
-
-  function fetchNews() {
-    fetch("https://mock-data-api.firebaseio.com/news/articles.json")
-      .then(res => res.json())
-      .then(data => {
-        setNewsData(data)
-      })
-  }
-
-  useEffect(() => {
-    fetchNews()
-  }, [])
-
   return (
-    <div className="container">
-      <h1>My News App</h1>
-      <div className="row">
-        {newsData.map((articleData, index) => {
-          return <NewsItem
-            key={index}
-            index={index}
-            expandedItem={expandedItem}
-            setExpandedItem={setExpandedItem}
-            article={articleData}
-          />
-        })}
-      </div>
-    </div>
+    <>
+      <ul>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/news-list">News</Link></li>
+        <li><Link to="/about">About</Link></li>
+      </ul>
+      <Switch>
+        
+        <Route path="/news/:news_id" component={NewsDetailPage}>
+        </Route>
+
+        <Route path="/news-list">
+          <NewsListPage />
+        </Route>
+
+        <Route path="/about">
+          <p>Det här en sida som innehåller lite nyheter</p>
+        </Route>
+
+        <Route path="/">
+          <h1>Hej</h1>
+        </Route>
+
+      </Switch>
+    </>
   );
 }
 

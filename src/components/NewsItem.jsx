@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from "react-router-dom"
 
 export default function NewsItem(props) {
 
@@ -27,6 +28,7 @@ export default function NewsItem(props) {
           <img alt={props.article.description} className="img-fluid" src={props.article.urlToImage} />
           <p>{props.article.content}</p>
           <a href={props.article.url} rel="noopener noreferrer" target="_blank">Read more...</a>
+          <p><Link to={`/news/${props.index}`}>To Detail Page</Link></p>
         </>
       )}
 
